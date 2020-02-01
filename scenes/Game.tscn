@@ -6,7 +6,7 @@
 [ext_resource path="res://sprites/dzyndzel.png" type="Texture" id=4]
 [ext_resource path="res://sprites/internals.png" type="Texture" id=5]
 [ext_resource path="res://sprites/tongue.png" type="Texture" id=6]
-[ext_resource path="res://objects/Tooth.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/Half.tscn" type="PackedScene" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -137,14 +137,13 @@ animations = [ {
 [node name="root" type="Node2D"]
 
 [node name="floor" type="Sprite" parent="."]
-z_index = -4
 texture = ExtResource( 1 )
 centered = false
 
 [node name="face" type="AnimatedSprite" parent="."]
+z_index = 5
 frames = SubResource( 9 )
 animation = "Idle"
-frame = 3
 playing = true
 centered = false
 
@@ -156,22 +155,27 @@ centered = false
 
 [node name="internals" type="AnimatedSprite" parent="."]
 position = Vector2( 168, 145 )
-z_index = -1
 frames = SubResource( 15 )
 animation = "Open"
 
 [node name="dzyndzel" type="AnimatedSprite" parent="."]
 position = Vector2( 166, 131 )
-z_index = -1
+z_index = 2
 frames = SubResource( 20 )
 playing = true
 
 [node name="tongue" type="AnimatedSprite" parent="."]
 position = Vector2( 169, 160 )
+z_index = 2
 frames = SubResource( 25 )
 animation = "idle"
-frame = 3
 playing = true
 
-[node name="Tooth" parent="." instance=ExtResource( 7 )]
-position = Vector2( 149, 166 )
+[node name="Bottom" parent="." instance=ExtResource( 7 )]
+position = Vector2( 170, 163 )
+z_index = 4
+
+[node name="Top" parent="." instance=ExtResource( 7 )]
+position = Vector2( 171, 115 )
+scale = Vector2( 1, -1 )
+z_index = 4
