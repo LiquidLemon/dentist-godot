@@ -144,6 +144,7 @@ centered = false
 z_index = 5
 frames = SubResource( 9 )
 animation = "Idle"
+frame = 1
 playing = true
 centered = false
 
@@ -162,6 +163,7 @@ animation = "Open"
 position = Vector2( 166, 131 )
 z_index = 2
 frames = SubResource( 20 )
+frame = 3
 playing = true
 
 [node name="tongue" type="AnimatedSprite" parent="."]
@@ -169,6 +171,7 @@ position = Vector2( 169, 160 )
 z_index = 2
 frames = SubResource( 25 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="Bottom" parent="." instance=ExtResource( 7 )]
