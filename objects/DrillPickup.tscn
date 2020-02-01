@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/Pickup.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Spinner.gd" type="Script" id=2]
+[ext_resource path="res://sprites/bosch.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 75, 149 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="DrillPickup" type="Node2D" groups=[
+"pickups",
+]]
+position = Vector2( 105.795, 162.737 )
+script = ExtResource( 1 )
+type = "DRILL"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0.874146, 25.5244 )
+rotation = -1.57079
+script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" groups=[
+"pickups",
+]]
+polygon = PoolVector2Array( -3.78886, 0.493286, -4.80839, -18.0622, -7.25526, -23.1598, -16.8389, -24.5872, -23.5678, -31.52, -30.2967, -34.7825, -36.0061, -32.7434, -38.6568, -28.6653, -45.5897, -29.8888, -48.8522, -45.9974, -45.7936, -55.7849, -42.5311, -61.2903, -31.9279, -61.4942, -19.6936, -55.3771, -1.74979, -55.9888, 15.7862, -55.581, 22.719, -58.4356, 27.001, -59.4552, 29.244, -48.4442, 28.8362, -21.1208, 30.2635, -3.58484, 30.2635, 29.2441, 27.2049, 40.0511, 25.7776, 56.3636, 20.8838, 64.5199, 21.2916, 87.9691, 12.1158, 89.6004, 12.3198, 63.5004, 7.62991, 56.9754, 7.62991, 37.8082, -0.52636, 30.4675, -5.2162, 20.68 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DrillPickup" type="AnimatedSprite" parent="Area2D" groups=[
+"pickups",
+]]
+frames = SubResource( 2 )
+offset = Vector2( -10, 15 )
+__meta__ = {
+"_edit_lock_": true
+}

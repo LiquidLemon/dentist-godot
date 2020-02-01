@@ -1,7 +1,5 @@
 extends Node2D
 
-const ButtonHint = preload("res://objects/ButtonHint.tscn")
-
 export (float) var speed = 100
 export (NodePath) var pickerTip
 export (NodePath) var handTip
@@ -9,14 +7,13 @@ export (NodePath) var drillTip
 
 var dir = Vector2.ZERO
 
-var button = ButtonHint.instance()
+var button
 var target
 var state
 
 func _ready():
+	button = self.get_node("ButtonHint")
 	button.get_node("Holding").connect("animation_finished", self, "_on_hold_succeeded")
-	self.add_child(button)
-	button.visible = false
 	_change_state("PICK")
 	
 func _change_state(state):
@@ -44,7 +41,8 @@ func _change_state(state):
 
 func _process(_delta):
 	if self.target:
-		self.button.global_transform= self.target.global_transform
+		self.button.global_transform = Transform2D.IDENTITY
+		self.button.global_position = self.target.global_position
 
 	update_direction()
 	
@@ -92,6 +90,7 @@ func _on_hold_succeeded():
 	match self.state:
 		"PICK":
 			self._change_state("HAND")
+			self.get_parent().get_node("EnterTheDrill").play("Drill")
 		"HAND":
 			self.target.queue_free()
 			self._change_state(self.target.type)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://sprites/tooth2yellow.png" type="Texture" id=1]
 [ext_resource path="res://sprites/tooth2.png" type="Texture" id=2]
 [ext_resource path="res://sprites/tooth2crack.png" type="Texture" id=3]
+[ext_resource path="res://scripts/Tooth.gd" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -59,13 +60,14 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 10.3599, 8.518 )
+extents = Vector2( 5.49094, 6.66063 )
 
 [node name="Tooth2" type="AnimatedSprite" groups=[
 "teeth",
 ]]
 frames = SubResource( 10 )
 animation = "crack"
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
