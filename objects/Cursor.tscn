@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
@@ -12,27 +12,16 @@ radius = 4.34289
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 75, 149 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 3 )
-region = Rect2( 75, 0, 75, 149 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 150, 0, 75, 149 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 3 )
-region = Rect2( 225, 0, 75, 149 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 3 )
-region = Rect2( 300, 0, 75, 149 )
-
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 2 ) ],
 "loop": true,
-"name": "default",
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "drilling",
 "speed": 5.0
 } ]
 
@@ -60,6 +49,7 @@ handTip = NodePath("Hand/Tip")
 drillTip = NodePath("Drill/Tip")
 
 [node name="Picker" type="Sprite" parent="."]
+visible = false
 position = Vector2( -77.2937, -108.769 )
 texture = ExtResource( 2 )
 centered = false
@@ -84,6 +74,7 @@ visible = false
 position = Vector2( 0.00958109, -0.817612 )
 rotation = 3.92699
 frames = SubResource( 7 )
+animation = "idle"
 centered = false
 offset = Vector2( -40, -25 )
 
@@ -97,6 +88,6 @@ rotation = -0.261799
 frames = SubResource( 10 )
 
 [node name="Tip" type="Node2D" parent="Hand"]
-position = Vector2( -24.6789, -10.2592 )
+position = Vector2( -24.0404, -10.0881 )
 [connection signal="area_entered" from="Tip" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Tip" to="." method="_on_Tip_area_exited"]
