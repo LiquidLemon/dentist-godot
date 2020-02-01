@@ -1,18 +1,14 @@
 extends Node2D
 
+const ButtonHint = preload("res://objects/ButtonHint.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 export (float) var speed = 100
 
 var dir = Vector2.ZERO
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var button = ButtonHint.instance()
 
-func _process(delta):
+func _process(_delta):
 	update_direction()
 	
 func update_direction():
@@ -26,11 +22,20 @@ func update_direction():
 		
 	self.dir = Vector2(dir_x, dir_y)
 	
-	
 func _physics_process(delta):
 	self.translate(self.dir * self.speed * delta)
-
+	self.rotation_degrees = -self.dir.x * 6 - self.dir.y * 1
 
 func _on_Area2D_area_entered(area):
-#	area.find_parent()
-	print(area.get_groups())
+	var tooth = area.get_parent()
+	if not tooth.is_in_group("teeth"):
+		return
+		
+	tooth.add_child(button)
+
+func _on_Tip_area_exited(area):
+	var tooth = area.get_parent()
+	if not tooth.is_in_group("teeth"):
+		return
+		
+	tooth.remove_child(button)
