@@ -66,4 +66,6 @@ animations = [ {
 
 [node name="AnimatedSprite" type="AnimatedSprite"]
 frames = SubResource( 12 )
-animation = "blink"
+animation = "scroll"
+frame = 4
+playing = true
