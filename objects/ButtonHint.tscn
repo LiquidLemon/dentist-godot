@@ -74,7 +74,7 @@ animations = [ {
 } ]
 
 [node name="ButtonHint" type="AnimatedSprite"]
-position = Vector2( 0.950268, -18.1975 )
+position = Vector2( 0, -15.7762 )
 z_index = 20
 frames = SubResource( 3 )
 script = ExtResource( 2 )
@@ -90,9 +90,13 @@ text = "HOLD
 "
 align = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Holding" type="AnimatedSprite" parent="."]
 z_index = -2
 frames = SubResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}

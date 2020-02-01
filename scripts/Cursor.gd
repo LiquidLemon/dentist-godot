@@ -15,6 +15,8 @@ var state
 
 func _ready():
 	button.get_node("Holding").connect("animation_finished", self, "_on_hold_succeeded")
+	self.add_child(button)
+	button.visible = false
 	_change_state("PICK")
 	
 func _change_state(state):
@@ -41,6 +43,9 @@ func _change_state(state):
 			
 
 func _process(_delta):
+	if self.target:
+		self.button.global_transform= self.target.global_transform
+
 	update_direction()
 	
 func update_direction():
@@ -59,25 +64,42 @@ func _physics_process(delta):
 	self.rotation_degrees = -self.dir.x * 6 - self.dir.y * 1
 
 func _on_Area2D_area_entered(area):
-	var tooth = area.get_parent()
-	if not tooth.is_in_group("teeth"):
-		return
-		
-	target = tooth
-		
-	target.add_child(button)
+	var potential_target = area.get_parent()
+
+	match self.state:
+		"PICK":
+			if not potential_target.is_in_group("teeth"):
+				return
+				
+			self.target = potential_target
+			self.button.visible = true
+		"HAND":
+			if not potential_target.is_in_group("pickups"):
+				return
+				
+			self.target = potential_target
+			self.button.visible = true
+		"DRILL":
+			if not potential_target.is_in_group("teeth"):
+				return
+
 	
 func _on_hold_succeeded():
-	target.remove_child(button)
-	button.get_node("Holding").frame = 0
+	self.button.visible = false
+	self.button.get_node("Holding").frame = 0
+	self.button.get_node("Holding").stop()
 	
 	match self.state:
 		"PICK":
 			self._change_state("HAND")
+		"HAND":
+			self.target.queue_free()
+			self._change_state(self.target.type)
+			
+	self.target = null
 
 func _on_Tip_area_exited(area):
-	var tooth = area.get_parent()
-	if not tooth.is_in_group("teeth"):
-		return
-		
-	tooth.remove_child(button)
+	self.target = null
+	self.button.visible = false
+	self.button.get_node("Holding").frame = 0
+	self.button.get_node("Holding").stop()

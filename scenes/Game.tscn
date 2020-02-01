@@ -140,11 +140,13 @@ animations = [ {
 [node name="EyeR" parent="." instance=ExtResource( 8 )]
 position = Vector2( 218, 57 )
 z_index = 7
+frame = 7
 
 [node name="EyeL" parent="." instance=ExtResource( 8 )]
 position = Vector2( 117, 57 )
 scale = Vector2( -1, 1 )
 z_index = 7
+frame = 7
 
 [node name="floor" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -181,7 +183,7 @@ position = Vector2( 169, 160 )
 z_index = 2
 frames = SubResource( 25 )
 animation = "idle"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Bottom" parent="." instance=ExtResource( 7 )]
