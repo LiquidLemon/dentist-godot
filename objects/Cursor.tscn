@@ -1,24 +1,102 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
+[ext_resource path="res://sprites/bosch.png" type="Texture" id=3]
+[ext_resource path="res://sprites/hand.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 2.71836
+radius = 4.34289
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 75, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 150, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 225, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 300, 0, 75, 149 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 60, 61 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 60, 0, 60, 61 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Cursor" type="Node2D"]
 script = ExtResource( 1 )
 speed = 250.0
+pickerTip = NodePath("Picker/Tip")
+handTip = NodePath("Hand/Tip")
+drillTip = NodePath("Drill/Tip")
 
 [node name="Picker" type="Sprite" parent="."]
-position = Vector2( -127.468, -188.63 )
+position = Vector2( -77.2937, -108.769 )
 texture = ExtResource( 2 )
 centered = false
 
+[node name="Tip" type="Node2D" parent="Picker"]
+position = Vector2( 1.55183, 4.46149 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Tip" type="Area2D" parent="."]
-position = Vector2( -125.98, -183.895 )
+position = Vector2( -82.6737, -97.2086 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Drill" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0.00958109, -0.817612 )
+rotation = 3.92699
+frames = SubResource( 7 )
+centered = false
+offset = Vector2( -40, -25 )
+
+[node name="Tip" type="Node2D" parent="Drill"]
+position = Vector2( 23.7563, 119.614 )
+
+[node name="Hand" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -23.8328, -14.216 )
+rotation = -0.261799
+frames = SubResource( 10 )
+
+[node name="Tip" type="Node2D" parent="Hand"]
+position = Vector2( -24.6789, -10.2592 )
 [connection signal="area_entered" from="Tip" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Tip" to="." method="_on_Tip_area_exited"]
