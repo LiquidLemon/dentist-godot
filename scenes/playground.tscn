@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/Cursor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Tooth.tscn" type="PackedScene" id=2]
+
+[node name="Scene" type="Node2D"]
+
+[node name="Cursor" parent="." groups=[
+"cursor",
+] instance=ExtResource( 1 )]
+position = Vector2( 159.326, 115.753 )
+z_index = 10
+
+[node name="Tooth" parent="." instance=ExtResource( 2 )]
+position = Vector2( 110.034, 79.6053 )
