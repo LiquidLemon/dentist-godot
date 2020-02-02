@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="Curve" id=21]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.813471, 189.818 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=22]
+curve = SubResource( 21 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 1.7
+flag_disable_z = true
+direction = Vector3( 10, 20, 0 )
+spread = 90.0
+gravity = Vector3( 0, 90, 0 )
+angular_velocity = 217.81
+orbit_velocity = 0.05
+orbit_velocity_random = 0.0
+radial_accel = 13.95
+tangential_accel = -9.3
+damping = 3.0
+angle = -117.2
+angle_random = 0.22
+angle_curve = SubResource( 22 )
+scale = 1.8
+scale_random = 1.0
+
+[node name="Particles2D" type="Particles2D"]
+rotation = -0.555015
+amount = 16
+preprocess = 65.22
+speed_scale = 2.39
+randomness = 0.58
+process_material = SubResource( 3 )

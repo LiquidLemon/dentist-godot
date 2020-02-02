@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://sprites/screw.png" type="Texture" id=9]
 [ext_resource path="res://sprites/screwdriver.png" type="Texture" id=10]
 [ext_resource path="res://objects/StickSpinner.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/spray.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 1.68665
@@ -48,69 +49,97 @@ animations = [ {
 "speed": 50.0
 } ]
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="Curve" id=8]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.813471, 189.818 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 1
+emission_sphere_radius = 1.7
+flag_disable_z = true
+direction = Vector3( 10, 20, 0 )
+spread = 90.0
+gravity = Vector3( 0, 90, 0 )
+angular_velocity = 217.81
+orbit_velocity = 0.05
+orbit_velocity_random = 0.0
+radial_accel = 13.95
+tangential_accel = -9.3
+damping = 3.0
+angle = -117.2
+angle_random = 0.22
+angle_curve = SubResource( 9 )
+scale = 1.8
+scale_random = 1.0
+color = Color( 0.968627, 0.894118, 0.113725, 1 )
+
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 60, 61 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 4 )
 region = Rect2( 60, 0, 60, 61 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 28, 46 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 9 )
 region = Rect2( 28, 0, 28, 46 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 9 )
 region = Rect2( 56, 0, 28, 46 )
 
-[sub_resource type="SpriteFrames" id=14]
+[sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 4 )
 region = Rect2( 60, 0, 60, 61 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ SubResource( 15 ) ],
+"frames": [ SubResource( 18 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 40, 195 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 10 )
 region = Rect2( 40, 0, 40, 195 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 10 )
 region = Rect2( 80, 0, 40, 195 )
 
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -157,13 +186,27 @@ centered = false
 offset = Vector2( -40, -25 )
 
 [node name="Tip" type="Node2D" parent="Drill"]
+visible = false
 position = Vector2( 23.7563, 119.614 )
+
+[node name="whitespray" parent="Drill" instance=ExtResource( 12 )]
+position = Vector2( 23.7563, 119.614 )
+rotation = -3.14159
+emitting = false
+amount = 32
+
+[node name="yellowspray" parent="Drill" instance=ExtResource( 12 )]
+position = Vector2( 23.7563, 119.614 )
+rotation = -3.14159
+emitting = false
+amount = 32
+process_material = SubResource( 10 )
 
 [node name="Hand" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( -23.8328, -14.216 )
 rotation = -0.261799
-frames = SubResource( 10 )
+frames = SubResource( 13 )
 
 [node name="Tip" type="Node2D" parent="Hand"]
 position = Vector2( -24.0404, -10.0881 )
@@ -204,13 +247,13 @@ z_index = 10
 [node name="Screw" type="AnimatedSprite" parent="."]
 visible = false
 rotation = 2.09439
-frames = SubResource( 14 )
+frames = SubResource( 17 )
 
 [node name="Hand" type="AnimatedSprite" parent="Screw"]
 position = Vector2( 10.7328, -34.2031 )
 rotation = -1.57079
 z_index = 1
-frames = SubResource( 16 )
+frames = SubResource( 19 )
 
 [node name="Tip" type="Node2D" parent="Screw"]
 position = Vector2( 0.0539474, 20.9204 )
@@ -218,7 +261,7 @@ position = Vector2( 0.0539474, 20.9204 )
 [node name="Driver" type="AnimatedSprite" parent="."]
 visible = false
 rotation = 2.35619
-frames = SubResource( 20 )
+frames = SubResource( 23 )
 
 [node name="Tip" type="Node2D" parent="Driver"]
 position = Vector2( -2.12174, 92.631 )

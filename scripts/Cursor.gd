@@ -18,6 +18,7 @@ var state
 var drillSpeed
 var rng = RandomNumberGenerator.new()
 var SWEET
+var spray
 var screwingPos
 
 func _ready():
@@ -96,14 +97,26 @@ func _process(_delta):
 	
 	if rtStrength > 0:
 		self.get_node("Drill").play("drilling")
+		if self.target.state != "white":
+			spray = self.get_node("Drill/yellowspray")
+		else:
+			spray = self.get_node("Drill/whitespray")
 		if self.target != null:
 			self.get_parent().play_anims("drill")
 			self.get_parent().drill_speed(drillSpeed)
 			self.get_node("DrillGame/RT").position = Vector2(54, rtStrength * 5)
+			spray.emitting = true
+			spray.speed_scale = 5 * rtStrength
+			if spray.speed_scale < 1:
+				spray.speed_scale = 1
+				
+			
 	else:
 		self.get_node("DrillGame/RT").position = Vector2(54, 0)
 		self.get_node("Drill").play("idle")
 		self.get_parent().reset_anim()
+		if spray != null:
+			spray.emitting = false
 		
 	if self.state == "SCREWING":
 		var revolutions = self.get_node("ScrewGame/StickSpinner").revolutions
