@@ -61,6 +61,7 @@ position = Vector2( 184.861, 52.7875 )
 rotation = 0.185876
 scale = Vector2( 0.742199, 0.590057 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
 
 [node name="MenuList" type="Control" parent="HBoxContainer"]
