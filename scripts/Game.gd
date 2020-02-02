@@ -8,13 +8,14 @@ var animation
 var state
 var elapsed
 var won
-
+var end_screen_time
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_state("none")
 	play_anims("idle")
 	elapsed = 0
 	won = false
+	end_screen_time = 0
 
 func set_state(state):
 	self.state = state
@@ -80,6 +81,11 @@ func _process(delta):
 	
 	if not won:
 		elapsed += delta
+	else:
+		end_screen_time += elapsed
+		
+	if end_screen_time > 10:
+		get_tree().change_scene("res://scenes/Menu.tscn")
 	
 	if bad == 0:
 		win()

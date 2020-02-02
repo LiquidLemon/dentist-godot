@@ -27,7 +27,7 @@ func _on_hold_succeeded():
 		0:
 			get_tree().change_scene("res://scenes/Game.tscn")
 		1:
-			pass
+			OS.shell_open("https://github.com/LiquidLemon/dentist-godot")
 		2:
 			get_tree().quit()
 		

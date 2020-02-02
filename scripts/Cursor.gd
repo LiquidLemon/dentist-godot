@@ -112,6 +112,7 @@ func _process(_delta):
 		self.get_node("Driver").frame = frame
 		selected_target.update_screw(val)
 		if val == 5:
+			selected_target.state = "screw"
 			self.get_node("ScrewGame/StickSpinner").reset()
 			self._change_state("PICK")
 
