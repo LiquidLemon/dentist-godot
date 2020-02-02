@@ -293,7 +293,6 @@ frame = 1
 
 [node name="ToothL5" parent="." instance=ExtResource( 2 )]
 position = Vector2( -84, -18 )
-frame = 1
 
 [node name="ToothL4" parent="." instance=ExtResource( 6 )]
 position = Vector2( -73, -12 )
@@ -321,13 +320,11 @@ scale = Vector2( 1, -1 )
 position = Vector2( 44, -4 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ToothR2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 25, 1 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ToothR1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 5, 4 )

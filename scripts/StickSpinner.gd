@@ -2,12 +2,23 @@ extends Node2D
 
 var prev_degrees
 var total_spin
+var enabled
+var revolutions
 
 func _ready():
+	reset()
+	
+func reset():
+	enabled = false
 	self.prev_degrees = 0
 	self.total_spin = 0
+	self.revolutions = 0	
 
 func _process(delta):
+	if !enabled:
+		self.visible = false
+		return
+	self.visible = true
 	var dir_x = -Input.get_action_strength("right_left")
 	if dir_x == 0:
 		dir_x = Input.get_action_strength("right_right")
@@ -33,7 +44,6 @@ func _process(delta):
 		elif diff < -180:
 			diff += 360
 		self.total_spin += diff
-		var revolutions = total_spin / 360.0
-		print(revolutions)
+		revolutions = total_spin / 360.0
 		
 	self.prev_degrees = degrees
