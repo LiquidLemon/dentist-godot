@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://objects/ButtonHint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/i_want.res" type="DynamicFont" id=6]
 [ext_resource path="res://objects/Slider.tscn" type="PackedScene" id=7]
+[ext_resource path="res://sprites/button-rt.png" type="Texture" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.34289
@@ -132,6 +133,10 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="DrillGame"]
 wait_time = 2.0
 autostart = true
+
+[node name="RT" type="Sprite" parent="DrillGame"]
+position = Vector2( 54, 0 )
+texture = ExtResource( 8 )
 [connection signal="area_entered" from="Tip" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Tip" to="." method="_on_Tip_area_exited"]
 [connection signal="timeout" from="DrillGame/Timer" to="." method="_on_Timer_timeout"]

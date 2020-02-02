@@ -72,12 +72,15 @@ func _process(_delta):
 		self.get_node("DrillGame/Timer").stop()
 		self.get_node("DrillGame/Timer").start()
 			
+	
 	if rtStrength > 0:
 		self.get_node("Drill").play("drilling")
 		if self.target != null:
 			self.get_parent().play_anims("drill")
 			self.get_parent().drill_speed(drillSpeed)
+			self.get_node("DrillGame/RT").position = Vector2(54, rtStrength * 5)
 	else:
+		self.get_node("DrillGame/RT").position = Vector2(54, 0)
 		self.get_node("Drill").play("idle")
 		self.get_parent().reset_anim()
 
