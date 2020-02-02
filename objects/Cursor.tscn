@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://sprites/button-rt.png" type="Texture" id=8]
 [ext_resource path="res://sprites/screw.png" type="Texture" id=9]
 [ext_resource path="res://sprites/screwdriver.png" type="Texture" id=10]
+[ext_resource path="res://objects/spray.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 1.68665
@@ -46,6 +47,32 @@ animations = [ {
 "name": "drilling",
 "speed": 50.0
 } ]
+
+[sub_resource type="Curve" id=21]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.813471, 189.818 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=22]
+curve = SubResource( 21 )
+
+[sub_resource type="ParticlesMaterial" id=23]
+emission_shape = 1
+emission_sphere_radius = 1.7
+flag_disable_z = true
+direction = Vector3( 10, 20, 0 )
+spread = 90.0
+gravity = Vector3( 0, 90, 0 )
+angular_velocity = 217.81
+orbit_velocity = 0.05
+orbit_velocity_random = 0.0
+radial_accel = 13.95
+angle = -117.2
+angle_random = 0.22
+angle_curve = SubResource( 22 )
+scale = 1.8
+scale_random = 1.0
+color = Color( 1, 0.980392, 0.113725, 1 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
@@ -155,7 +182,27 @@ centered = false
 offset = Vector2( -40, -25 )
 
 [node name="Tip" type="Node2D" parent="Drill"]
+visible = false
 position = Vector2( 23.7563, 119.614 )
+
+[node name="whitespray" parent="Drill" instance=ExtResource( 11 )]
+position = Vector2( 23.5469, 121.45 )
+rotation = 3.14159
+scale = Vector2( 1, 1 )
+emitting = false
+amount = 32
+explosiveness = 0.01
+randomness = 0.7
+
+[node name="yellowspray" parent="Drill" instance=ExtResource( 11 )]
+position = Vector2( 23.5469, 121.45 )
+rotation = 3.14159
+scale = Vector2( 1, 1 )
+emitting = false
+amount = 32
+explosiveness = 0.01
+randomness = 0.7
+process_material = SubResource( 23 )
 
 [node name="Hand" type="AnimatedSprite" parent="."]
 visible = false
