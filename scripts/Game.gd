@@ -76,13 +76,13 @@ func _process(delta):
 	var teeth = get_tree().get_nodes_in_group("teeth")
 	var bad = 0
 	for tooth in teeth:
-		if tooth.state == "crack" or tooth.state == "yellow":
+		if tooth.state == "crack" or tooth.state == "yellow" or tooth.state == "fixing":
 			bad += 1
 	
 	if not won:
 		elapsed += delta
 	else:
-		end_screen_time += elapsed
+		end_screen_time += delta
 		
 	if end_screen_time > 10:
 		get_tree().change_scene("res://scenes/Menu.tscn")

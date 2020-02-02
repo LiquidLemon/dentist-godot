@@ -37,6 +37,7 @@ func set_state(state):
 	
 func crush():
 	self.isActive = false
+	self.state = "crushed"
 	self.play("invisible")
 	self.stop()
 	

@@ -236,6 +236,7 @@ func _on_Timer_timeout():
 	self.target.crush()
 	self.drillGame.visible = false
 	if selected_target == self.target:
+		target.state = "fixing"
 		self.get_parent().get_node("EnterTheScrew").play("Screw")
 		self._change_state("HAND")
 
