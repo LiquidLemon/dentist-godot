@@ -5,13 +5,16 @@ extends Node2D
 # var a = 2
 # var b = "text"
 var animation
-
 var state
+var elapsed
+var won
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_state("none")
 	play_anims("idle")
+	elapsed = 0
+	won = false
 
 func set_state(state):
 	self.state = state
@@ -68,4 +71,22 @@ func _on_EyeR_animation_finished():
 	if type == "blink":
 		play_anims(animation)
 
+func _process(delta):
+	var teeth = get_tree().get_nodes_in_group("teeth")
+	var bad = 0
+	for tooth in teeth:
+		if tooth.state == "crack" or tooth.state == "yellow":
+			bad += 1
+	
+	if not won:
+		elapsed += delta
+	
+	if bad == 0:
+		win()
+		
+func win():
+	won = true
+	var label = get_node("CanvasLayer/Label")
+	label.visible = true
+	label.text = "YOU DID IT!\nTIME: %.1fs" % elapsed
 
