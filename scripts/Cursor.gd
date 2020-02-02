@@ -5,6 +5,7 @@ export (NodePath) var pickerTip
 export (NodePath) var handTip
 export (NodePath) var drillTip
 export (NodePath) var screwTip
+export (NodePath) var driverTip
 
 var dir = Vector2.ZERO
 
@@ -36,6 +37,9 @@ func _change_state(state):
 			get_node("Hand").visible = false
 		"SCREW":
 			get_node("Screw").visible = false
+		"DRIVER":
+			get_node("Driver").visible = false
+			
 	
 	self.state = state
 	
@@ -51,7 +55,10 @@ func _change_state(state):
 			get_node("Tip").transform = get_node(handTip).get_relative_transform_to_parent(self)
 		"SCREW":
 			get_node("Screw").visible = true
-			get_node("Tip").transform = get_node(screwTip).get_relative_transform_to_parent(self)	
+			get_node("Tip").transform = get_node(screwTip).get_relative_transform_to_parent(self)
+		"DRIVER":
+			get_node("Driver").visible = true
+			get_node("Tip").transform = get_node(driverTip).get_relative_transform_to_parent(self)	
 			
 
 func _process(_delta):
@@ -132,6 +139,11 @@ func _on_Area2D_area_entered(area):
 				return
 			self.target = potential_target
 			self.button.visible = true
+		"DRIVER":
+			if not potential_target == self.selected_target:
+				return
+			self.target = potential_target
+			self.button.visible = true
 
 	
 func _on_hold_succeeded():
@@ -149,8 +161,12 @@ func _on_hold_succeeded():
 			self.target.queue_free()
 			self._change_state(self.target.type)
 		"SCREW":
+			self.target.screw_me()
 			self._change_state("HAND")
-			
+			self.get_parent().get_node("EnterTheDriver").play("Driver")
+		"DRIVER":
+			self._change_state("HAND")
+				
 	self.target = null
 
 func _on_Tip_area_exited(area):
@@ -165,5 +181,6 @@ func _on_Timer_timeout():
 	self.target.crush()
 	self.drillGame.visible = false
 	if selected_target == self.target:
+		self.get_parent().get_node("EnterTheScrew").play("Screw")
 		self._change_state("HAND")
-		pass
+

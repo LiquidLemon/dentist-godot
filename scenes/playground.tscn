@@ -4,6 +4,8 @@
 [ext_resource path="res://objects/Tooth1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/DrillPickup.tscn" type="PackedScene" id=3]
 
+
+
 [node name="Scene" type="Node2D"]
 
 [node name="Cursor" parent="." groups=[
