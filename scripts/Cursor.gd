@@ -4,6 +4,7 @@ export (float) var speed = 100
 export (NodePath) var pickerTip
 export (NodePath) var handTip
 export (NodePath) var drillTip
+export (NodePath) var screwTip
 
 var dir = Vector2.ZERO
 
@@ -48,6 +49,9 @@ func _change_state(state):
 		"HAND":
 			get_node("Hand").visible = true
 			get_node("Tip").transform = get_node(handTip).get_relative_transform_to_parent(self)
+		"SCREW":
+			get_node("Screw").visible = true
+			get_node("Tip").transform = get_node(screwTip).get_relative_transform_to_parent(self)	
 			
 
 func _process(_delta):
@@ -123,6 +127,11 @@ func _on_Area2D_area_entered(area):
 			self.target = potential_target
 			if self.target.isActive:
 				self.drillGame.visible = true
+		"SCREW":
+			if not potential_target == self.selected_target:
+				return
+			self.target = potential_target
+			self.button.visible = true
 
 	
 func _on_hold_succeeded():
@@ -139,6 +148,8 @@ func _on_hold_succeeded():
 		"HAND":
 			self.target.queue_free()
 			self._change_state(self.target.type)
+		"SCREW":
+			self._change_state("HAND")
 			
 	self.target = null
 
@@ -156,4 +167,3 @@ func _on_Timer_timeout():
 	if selected_target == self.target:
 		self._change_state("HAND")
 		pass
-	pass # Replace with function body.

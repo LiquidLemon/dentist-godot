@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/Pickup.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Spinner.gd" type="Script" id=2]
+[ext_resource path="res://sprites/screw.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 28, 46 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 28, 0, 28, 46 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 56, 0, 28, 46 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="ScrewPickup" type="Node2D" groups=[
+"pickups",
+]]
+position = Vector2( 105.795, 162.737 )
+script = ExtResource( 1 )
+type = "SCREW"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0.874146, 25.5244 )
+rotation = -1.57079
+script = ExtResource( 2 )
+
+[node name="ScrewPickup" type="AnimatedSprite" parent="Area2D" groups=[
+"pickups",
+]]
+frames = SubResource( 4 )
+offset = Vector2( -10, 15 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -2.84061, 12.7914, -2.47424, 29.151, -3.3288, 37.0866, -16.0258, 37.8192, -17.1247, 16.332, -16.8806, 6.07674, -24.5721, 3.63506, -25.0604, -2.71344, -22.7408, -6.86439, -12.7298, -9.55035, -1.98615, -8.57374, 4.97282, -3.56822, 4.36243, 3.87904, -2.10812, 6.44292 )
+__meta__ = {
+"_edit_lock_": true
+}

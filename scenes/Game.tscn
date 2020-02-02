@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://sprites/floor.png" type="Texture" id=1]
 [ext_resource path="res://sprites/bib.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://objects/Cursor.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=10]
 [ext_resource path="res://objects/DrillPickup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/ScrewPickup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -163,12 +164,13 @@ z_index = 10
 [node name="EyeR" parent="." instance=ExtResource( 8 )]
 position = Vector2( 218, 57 )
 z_index = 7
-frame = 7
+frame = 2
 
 [node name="EyeL" parent="." instance=ExtResource( 8 )]
 position = Vector2( 117, 57 )
 scale = Vector2( -1, 1 )
 z_index = 7
+frame = 8
 
 [node name="floor" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -219,7 +221,7 @@ position = Vector2( 169, 160 )
 z_index = 2
 frames = SubResource( 25 )
 animation = "idle"
-frame = 2
+frame = 3
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -244,6 +246,10 @@ autostart = true
 
 [node name="EnterTheDrill" type="AnimationPlayer" parent="."]
 anims/Drill = SubResource( 26 )
+
+[node name="ScrewPickup" parent="." instance=ExtResource( 12 )]
+position = Vector2( 48.1683, 201.315 )
+z_index = 5
 [connection signal="animation_finished" from="EyeR" to="." method="_on_EyeR_animation_finished"]
 [connection signal="animation_finished" from="EyeL" to="." method="_on_EyeL_animation_finished"]
 [connection signal="timeout" from="blinkTimer" to="." method="_on_blinkTimer_timeout"]
