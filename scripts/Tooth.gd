@@ -18,8 +18,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if isScrewing:
+		var target = self.get_node("screwNmask/screw").position
+		target.y -= 20
+		self.get_node("Area2D").position = target
+	pass
 
 func set_state(state):
 	self.state = state
@@ -28,9 +32,10 @@ func set_state(state):
 func crush():
 	self.isActive = false
 	self.play("invisible")
+	self.stop()
 	
 func screw_me():
 	isScrewing = true
 	self.get_node("Arrow").visible = false
-	self.get_node("screw").visible = true
-	self.get_node("mask").visible = true
+	self.get_node("screwNmask/screw").visible = true
+	self.get_node("screwNmask/mask").visible = true

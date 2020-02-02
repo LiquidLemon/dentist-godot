@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
@@ -58,6 +58,26 @@ region = Rect2( 60, 0, 60, 61 )
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
 "frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 40, 195 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 10 )
+region = Rect2( 40, 0, 40, 195 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 10 )
+region = Rect2( 80, 0, 40, 195 )
+
+[sub_resource type="SpriteFrames" id=21]
+animations = [ {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -138,6 +158,7 @@ __meta__ = {
 
 [node name="Tip" type="Area2D" parent="."]
 position = Vector2( -82.6737, -97.2086 )
+z_index = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
 shape = SubResource( 1 )
@@ -194,6 +215,12 @@ autostart = true
 position = Vector2( 54, 0 )
 texture = ExtResource( 8 )
 
+[node name="ScrewGame" type="Node2D" parent="."]
+visible = false
+
+[node name="Driver" type="AnimatedSprite" parent="ScrewGame"]
+frames = SubResource( 21 )
+
 [node name="Screw" type="AnimatedSprite" parent="."]
 visible = false
 rotation = 2.09439
@@ -215,6 +242,7 @@ frames = SubResource( 20 )
 
 [node name="Tip" type="Node2D" parent="Driver"]
 position = Vector2( -0.707386, 84.1457 )
+z_index = 20
 [connection signal="area_entered" from="Tip" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Tip" to="." method="_on_Tip_area_exited"]
 [connection signal="timeout" from="DrillGame/Timer" to="." method="_on_Timer_timeout"]

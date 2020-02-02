@@ -11,19 +11,23 @@ var dir = Vector2.ZERO
 
 var button
 var drillGame
+var screwGame
 var target
 var selected_target
 var state
 var drillSpeed
 var rng = RandomNumberGenerator.new()
 var SWEET
+var screwingPos
 
 func _ready():
+	screwingPos = "DOWN"
 	SWEET = [ 0.6, 0.9 ]
 	rng.randomize()
 	drillSpeed = 0
 	button = self.get_node("ButtonHint")
 	drillGame = self.get_node("DrillGame")
+	screwGame = self.get_node("ScrewGame")
 	button.get_node("Holding").connect("animation_finished", self, "_on_hold_succeeded")
 	_change_state("PICK")
 	
@@ -37,8 +41,8 @@ func _change_state(state):
 			get_node("Hand").visible = false
 		"SCREW":
 			get_node("Screw").visible = false
-		"DRIVER":
-			get_node("Driver").visible = false
+#		"DRIVER":
+			#get_node("Driver").visible = false
 			
 	
 	self.state = state
@@ -59,6 +63,12 @@ func _change_state(state):
 		"DRIVER":
 			get_node("Driver").visible = true
 			get_node("Tip").transform = get_node(driverTip).get_relative_transform_to_parent(self)	
+		"SCREWING":
+			if screwingPos == "UP":
+				get_node("Driver").rotation_degrees = 180
+			else:
+				get_node("Driver").rotation_degrees = 0
+			get_node("Tip").transform = get_node(driverTip).get_relative_transform_to_parent(self)
 			
 
 func _process(_delta):
@@ -165,7 +175,8 @@ func _on_hold_succeeded():
 			self._change_state("HAND")
 			self.get_parent().get_node("EnterTheDriver").play("Driver")
 		"DRIVER":
-			self._change_state("HAND")
+			self.screwGame.visible = true
+			self._change_state("SCREWING")
 				
 	self.target = null
 
