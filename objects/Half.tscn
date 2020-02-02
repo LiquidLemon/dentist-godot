@@ -333,7 +333,6 @@ frame = 1
 position = Vector2( 5, 4 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 anims/close = SubResource( 5 )
