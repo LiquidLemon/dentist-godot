@@ -42,7 +42,16 @@ func play_anims(name):
 			play_anims("blink")
 		"lose":
 			pass
-
+			
+func drill_speed(speed):
+	self.get_node("EyeL").speed_scale = speed * 6
+	self.get_node("EyeR").speed_scale = speed * 4
+	
+func reset_anim():
+	if animation == "scroll":
+		self.get_node("EyeL").speed_scale = 1
+		self.get_node("EyeR").speed_scale = 1
+		play_anims("idle")
 
 func _on_blinkTimer_timeout():
 	play_anims("blink")

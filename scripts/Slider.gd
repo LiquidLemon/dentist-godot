@@ -1,28 +1,19 @@
-extends AnimatedSprite
+extends Node2D
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var state
-var isActive
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.isActive = true
-	self.get_node("Arrow/Arrow").play("updown")
-	self.state = "white"
 	pass # Replace with function body.
 
+func set_pos(val):
+	var ptr = self.get_node("Pointer")
+	ptr.position = Vector2(-36 + 72 * val, 3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-func set_state(state):
-	self.state = state
-	self.animation = state
-	
-func crush():
-	self.isActive = false
-	self.visible = false

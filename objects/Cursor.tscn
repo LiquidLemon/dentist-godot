@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
 [ext_resource path="res://sprites/bosch.png" type="Texture" id=3]
 [ext_resource path="res://sprites/hand.png" type="Texture" id=4]
 [ext_resource path="res://objects/ButtonHint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://fonts/i_want.res" type="DynamicFont" id=6]
+[ext_resource path="res://objects/Slider.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.34289
@@ -13,30 +15,46 @@ radius = 4.34289
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 75, 149 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 75, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 150, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 225, 0, 75, 149 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 300, 0, 75, 149 )
+
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ SubResource( 2 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "drilling",
-"speed": 5.0
+"speed": 50.0
 } ]
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 60, 61 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 4 )
 region = Rect2( 60, 0, 60, 61 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -74,7 +92,7 @@ __meta__ = {
 visible = false
 position = Vector2( 0.00958109, -0.817612 )
 rotation = 3.92699
-frames = SubResource( 3 )
+frames = SubResource( 7 )
 animation = "idle"
 centered = false
 offset = Vector2( -40, -25 )
@@ -86,12 +104,34 @@ position = Vector2( 23.7563, 119.614 )
 visible = false
 position = Vector2( -23.8328, -14.216 )
 rotation = -0.261799
-frames = SubResource( 6 )
+frames = SubResource( 10 )
 
 [node name="Tip" type="Node2D" parent="Hand"]
 position = Vector2( -24.0404, -10.0881 )
 
 [node name="ButtonHint" parent="." instance=ExtResource( 5 )]
 visible = false
+
+[node name="DrillGame" type="Node2D" parent="."]
+visible = false
+position = Vector2( 0, -15 )
+
+[node name="Label" type="Label" parent="DrillGame"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="DrillGame"]
+
+[node name="Slider" parent="DrillGame" instance=ExtResource( 7 )]
+
+[node name="Timer" type="Timer" parent="DrillGame"]
+wait_time = 2.0
+autostart = true
 [connection signal="area_entered" from="Tip" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Tip" to="." method="_on_Tip_area_exited"]
+[connection signal="timeout" from="DrillGame/Timer" to="." method="_on_Timer_timeout"]
