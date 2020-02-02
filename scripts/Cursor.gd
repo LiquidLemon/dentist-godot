@@ -41,9 +41,8 @@ func _change_state(state):
 			get_node("Hand").visible = false
 		"SCREW":
 			get_node("Screw").visible = false
-#		"DRIVER":
-			#get_node("Driver").visible = false
-			
+		"SCREWING":
+			get_node("Driver").visible = false
 	
 	self.state = state
 	
@@ -61,6 +60,7 @@ func _change_state(state):
 			get_node("Screw").visible = true
 			get_node("Tip").transform = get_node(screwTip).get_relative_transform_to_parent(self)
 		"DRIVER":
+			get_node("Driver").rotation_degrees = 135
 			get_node("Driver").visible = true
 			get_node("Tip").transform = get_node(driverTip).get_relative_transform_to_parent(self)	
 		"SCREWING":
@@ -104,6 +104,16 @@ func _process(_delta):
 		self.get_node("DrillGame/RT").position = Vector2(54, 0)
 		self.get_node("Drill").play("idle")
 		self.get_parent().reset_anim()
+		
+	if self.state == "SCREWING":
+		var revolutions = self.get_node("ScrewGame/StickSpinner").revolutions
+		var val = clamp(revolutions, 0, 5)
+		var frame = int(val * 3) % 3
+		self.get_node("Driver").frame = frame
+		selected_target.update_screw(val)
+		if val == 5:
+			self.get_node("ScrewGame/StickSpinner").reset()
+			self._change_state("PICK")
 
 	update_direction()
 	
@@ -154,7 +164,10 @@ func _on_Area2D_area_entered(area):
 				return
 			self.target = potential_target
 			self.button.visible = true
-
+		"SCREWING":
+			if potential_target == selected_target:
+				self.screwGame.get_node("StickSpinner").enabled = true
+				pass
 	
 func _on_hold_succeeded():
 	self.button.visible = false
@@ -168,19 +181,30 @@ func _on_hold_succeeded():
 			self.selected_target = self.target
 			self.get_parent().get_node("EnterTheDrill").play("Drill")
 		"HAND":
-			self.target.queue_free()
+		#	self.target.queue_free()
+			self.get_parent().get_node("DrillPickup").global_position.x = 1000
+			self.get_parent().get_node("ScrewPickup").global_position.x = 1000
+			self.get_parent().get_node("DriverPickup").global_position.x = 1000
 			self._change_state(self.target.type)
 		"SCREW":
 			self.target.screw_me()
 			self._change_state("HAND")
 			self.get_parent().get_node("EnterTheDriver").play("Driver")
 		"DRIVER":
-			self.screwGame.visible = true
+			var par_name = self.target.get_parent().get_name()
+			print(par_name)
+			if par_name == "Top":
+				screwingPos = "UP"
+			else:
+				screwingPos = "DOWN"
 			self._change_state("SCREWING")
+			self.screwGame.visible = true
 				
 	self.target = null
 
 func _on_Tip_area_exited(area):
+	self.screwGame.get_node("StickSpinner").enabled = false
+	
 	self.target = null
 	self.button.visible = false
 	self.drillGame.visible = false

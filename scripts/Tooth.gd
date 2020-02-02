@@ -24,6 +24,12 @@ func _process(delta):
 		target.y -= 20
 		self.get_node("Area2D").position = target
 	pass
+	
+func update_screw(val):
+	print(val)
+	var frame = int(val * 3) % 3
+	self.get_node("screwNmask/screw").frame = frame
+	self.get_node("screwNmask/screw").position.y = -10 + val * 3
 
 func set_state(state):
 	self.state = state

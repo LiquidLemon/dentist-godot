@@ -194,14 +194,13 @@ z_index = 10
 
 [node name="EyeR" parent="." instance=ExtResource( 8 )]
 position = Vector2( 218, 57 )
-z_index = 7
-frame = 3
+z_index = 9
+frame = 7
 
 [node name="EyeL" parent="." instance=ExtResource( 8 )]
 position = Vector2( 117, 57 )
 scale = Vector2( -1, 1 )
-z_index = 7
-frame = 0
+z_index = 10
 
 [node name="floor" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -211,7 +210,7 @@ __meta__ = {
 }
 
 [node name="face" type="AnimatedSprite" parent="."]
-z_index = 5
+z_index = 8
 frames = SubResource( 9 )
 animation = "Idle"
 frame = 3
@@ -253,7 +252,6 @@ position = Vector2( 169, 160 )
 z_index = 2
 frames = SubResource( 25 )
 animation = "idle"
-frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
