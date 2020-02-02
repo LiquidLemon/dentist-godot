@@ -243,6 +243,7 @@ texture = ExtResource( 8 )
 z_index = 10
 
 [node name="StickSpinner" parent="ScrewGame" instance=ExtResource( 11 )]
+position = Vector2( -23, -40 )
 
 [node name="Screw" type="AnimatedSprite" parent="."]
 visible = false

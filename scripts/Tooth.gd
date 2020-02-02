@@ -21,7 +21,7 @@ func _ready():
 func _process(delta):
 	if isScrewing:
 		var target = self.get_node("screwNmask/screw").position
-		target.y -= 20
+		target.y -= 15
 		self.get_node("Area2D").position = target
 	pass
 	

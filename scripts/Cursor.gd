@@ -82,8 +82,8 @@ func _process(_delta):
 	
 	var rtStrength = Input.get_action_strength("rt")
 	
-	drillSpeed += (rtStrength - 0.5) * 0.1
-	drillSpeed += rng.randf_range(0, 0.025)
+	drillSpeed += (rtStrength - 0.5) * 0.09
+	drillSpeed += rng.randf_range(0, 0.015)
 	
 	drillSpeed = clamp(drillSpeed, 0, 1)
 	self.get_node("DrillGame/Slider").set_pos(drillSpeed)
@@ -97,7 +97,7 @@ func _process(_delta):
 	
 	if rtStrength > 0:
 		self.get_node("Drill").play("drilling")
-		if self.target.state != "white":
+		if selected_target.state != "white":
 			spray = self.get_node("Drill/yellowspray")
 		else:
 			spray = self.get_node("Drill/whitespray")
@@ -180,6 +180,12 @@ func _on_Area2D_area_entered(area):
 		"SCREWING":
 			if potential_target == selected_target:
 				self.screwGame.get_node("StickSpinner").enabled = true
+				self.get_node("ScrewGame/StickSpinner").transform = get_node(driverTip).get_relative_transform_to_parent(self)
+				self.get_node("ScrewGame/StickSpinner").position.x += 10
+				if 	screwingPos == "UP":
+					self.get_node("ScrewGame/StickSpinner").scale.y = -1
+				else:
+					self.get_node("ScrewGame/StickSpinner").scale.y = 1
 				pass
 	
 func _on_hold_succeeded():
