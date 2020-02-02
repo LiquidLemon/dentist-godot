@@ -18,11 +18,12 @@ func _process(delta):
 		
 	if dir_x * dir_x + dir_y * dir_y < sqrt(0.8):
 		self.prev_degrees = null
+		self.get_node("AnimatedSprite").frame = 0
 		return
 		
 	var angle = atan2(dir_y, dir_x)
 	var degrees = (rad2deg(angle) + 180)
-	var frame = (int(degrees / (360 / 8)) + 2) % 8
+	var frame = (int(degrees / (360 / 8)) + 2) % 8 + 1
 	self.get_node("AnimatedSprite").frame = frame
 	
 	if prev_degrees != null:
