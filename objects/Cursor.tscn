@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://objects/Slider.tscn" type="PackedScene" id=7]
 [ext_resource path="res://sprites/button-rt.png" type="Texture" id=8]
 [ext_resource path="res://sprites/screw.png" type="Texture" id=9]
+[ext_resource path="res://sprites/screwdriver.png" type="Texture" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 4.34289
+radius = 1.68665
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
@@ -94,6 +95,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 40, 195 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 10 )
+region = Rect2( 40, 0, 40, 195 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 10 )
+region = Rect2( 80, 0, 40, 195 )
+
+[sub_resource type="SpriteFrames" id=20]
+animations = [ {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="Cursor" type="Node2D"]
 script = ExtResource( 1 )
 speed = 250.0
@@ -101,6 +122,7 @@ pickerTip = NodePath("Picker/Tip")
 handTip = NodePath("Hand/Tip")
 drillTip = NodePath("Drill/Tip")
 screwTip = NodePath("Screw/Tip")
+driverTip = NodePath("Driver/Tip")
 
 [node name="Picker" type="Sprite" parent="."]
 visible = false
@@ -185,6 +207,14 @@ frames = SubResource( 16 )
 
 [node name="Tip" type="Node2D" parent="Screw"]
 position = Vector2( 0.0539474, 20.9204 )
+
+[node name="Driver" type="AnimatedSprite" parent="."]
+visible = false
+rotation = 2.35619
+frames = SubResource( 20 )
+
+[node name="Tip" type="Node2D" parent="Driver"]
+position = Vector2( -0.707386, 84.1457 )
 [connection signal="area_entered" from="Tip" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Tip" to="." method="_on_Tip_area_exited"]
 [connection signal="timeout" from="DrillGame/Timer" to="." method="_on_Timer_timeout"]

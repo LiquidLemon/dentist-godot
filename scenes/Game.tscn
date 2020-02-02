@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://sprites/floor.png" type="Texture" id=1]
 [ext_resource path="res://sprites/bib.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scripts/Game.gd" type="Script" id=10]
 [ext_resource path="res://objects/DrillPickup.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/ScrewPickup.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/DriverPickup.tscn" type="PackedScene" id=13]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -154,23 +155,53 @@ tracks/0/keys = {
 "values": [ Vector2( 214, 267 ), Vector2( 218, 196 ) ]
 }
 
+[sub_resource type="Animation" id=27]
+resource_name = "Screw"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScrewPickup:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 71, 246 ), Vector2( 71, 201 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "Driver"
+tracks/0/type = "value"
+tracks/0/path = NodePath("DriverPickup:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 215, 284 ), Vector2( 214, 204 ) ]
+}
+
 [node name="root" type="Node2D"]
 script = ExtResource( 10 )
 
 [node name="DrillPickup" parent="." instance=ExtResource( 11 )]
-position = Vector2( 223, 274 )
+position = Vector2( 214, 267 )
 z_index = 10
 
 [node name="EyeR" parent="." instance=ExtResource( 8 )]
 position = Vector2( 218, 57 )
 z_index = 7
-frame = 5
+frame = 3
 
 [node name="EyeL" parent="." instance=ExtResource( 8 )]
 position = Vector2( 117, 57 )
 scale = Vector2( -1, 1 )
 z_index = 7
-frame = 2
+frame = 0
 
 [node name="floor" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -183,7 +214,7 @@ __meta__ = {
 z_index = 5
 frames = SubResource( 9 )
 animation = "Idle"
-frame = 1
+frame = 3
 playing = true
 centered = false
 __meta__ = {
@@ -222,6 +253,7 @@ position = Vector2( 169, 160 )
 z_index = 2
 frames = SubResource( 25 )
 animation = "idle"
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -247,9 +279,19 @@ autostart = true
 [node name="EnterTheDrill" type="AnimationPlayer" parent="."]
 anims/Drill = SubResource( 26 )
 
+[node name="EnterTheScrew" type="AnimationPlayer" parent="."]
+anims/Screw = SubResource( 27 )
+
+[node name="EnterTheDriver" type="AnimationPlayer" parent="."]
+anims/Driver = SubResource( 28 )
+
 [node name="ScrewPickup" parent="." instance=ExtResource( 12 )]
-position = Vector2( 48.1683, 201.315 )
-z_index = 5
+position = Vector2( 71, 246 )
+z_index = 10
+
+[node name="DriverPickup" parent="." instance=ExtResource( 13 )]
+position = Vector2( 222, 283 )
+z_index = 10
 [connection signal="animation_finished" from="EyeR" to="." method="_on_EyeR_animation_finished"]
 [connection signal="animation_finished" from="EyeL" to="." method="_on_EyeL_animation_finished"]
 [connection signal="timeout" from="blinkTimer" to="." method="_on_blinkTimer_timeout"]

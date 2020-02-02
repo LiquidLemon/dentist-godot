@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/Pickup.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Spinner.gd" type="Script" id=2]
+[ext_resource path="res://sprites/screwdriver.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 40, 195 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 40, 0, 40, 195 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 0, 40, 195 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="DriverPickup" type="Node2D" groups=[
+"pickups",
+]]
+position = Vector2( 105.795, 162.737 )
+script = ExtResource( 1 )
+type = "DRIVER"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0.874146, 25.5244 )
+rotation = -1.57079
+script = ExtResource( 2 )
+
+[node name="DriverPickup" type="AnimatedSprite" parent="Area2D" groups=[
+"pickups",
+]]
+position = Vector2( -12.7384, 25.331 )
+rotation = 3.14159
+frames = SubResource( 4 )
+offset = Vector2( -10, 15 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( 2.26106, -52.6692, 2.26138, -2.66916, 2.26141, 3.33084, 10.2614, 5.33079, 14.2615, 11.3308, 13.2615, 18.3308, 10.2615, 18.3308, 15.2617, 46.3308, 17.2618, 69.3307, 12.2619, 85.3308, 12.262, 92.3308, 14.262, 100.331, 11.2621, 107.331, 5.26208, 109.331, -15.7379, 109.331, -20.7379, 104.331, -22.738, 98.331, -18.738, 91.331, -19.7381, 79.331, -21.7382, 68.331, -23.7382, 59.331, -24.7383, 51.331, -21.7384, 39.331, -19.7384, 28.331, -17.7385, 21.331, -19.7385, 17.331, -20.7385, 13.331, -19.7386, 7.33098, -15.7386, 4.33096, -8.73859, 2.33091, -9.73898, -61.6691, -12.739, -70.6691, -12.7391, -79.6691, -8.73915, -86.6691, 2.26086, -85.6692, 6.26089, -79.6692, 7.26096, -69.6692, 4.26102, -60.6692 )
